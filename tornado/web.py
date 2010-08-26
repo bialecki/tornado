@@ -437,12 +437,12 @@ class RequestHandler(object):
             js = ''.join('<script src="' + escape.xhtml_escape(p) +
                          '" type="text/javascript"></script>'
                          for p in paths)
-            sloc = html.rindex('</body>')
+            sloc = html.lower().rindex('</body>')
             html = html[:sloc] + js + '\n' + html[sloc:]
         if js_embed:
             js = '<script type="text/javascript">\n//<![CDATA[\n' + \
                 '\n'.join(js_embed) + '\n//]]>\n</script>'
-            sloc = html.rindex('</body>')
+            sloc = html.lower().rindex('</body>')
             html = html[:sloc] + js + '\n' + html[sloc:]
         if css_files:
             paths = set()
@@ -459,13 +459,13 @@ class RequestHandler(object):
         if css_embed:
             css = '<style type="text/css">\n' + '\n'.join(css_embed) + \
                 '\n</style>'
-            hloc = html.index('</head>')
+            hloc = html.lower().index('</head>')
             html = html[:hloc] + css + '\n' + html[hloc:]
         if html_heads:
-            hloc = html.index('</head>')
+            hloc = html.lower().index('</head>')
             html = html[:hloc] + ''.join(html_heads) + '\n' + html[hloc:]
         if html_bodies:
-            hloc = html.index('</body>')
+            hloc = html.lower().index('</body>')
             html = html[:hloc] + ''.join(html_bodies) + '\n' + html[hloc:]
         self.finish(html)
 
